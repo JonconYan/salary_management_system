@@ -1,5 +1,6 @@
 <template>
   <div class="worker_type">
+   <Navbar/>
    <v-card max-width="1000px" style="margin-left: auto; margin-right: auto;">
     <v-data-table
       :headers="headers"
@@ -77,7 +78,9 @@
 
 
 <script>
+  import Navbar from '@/components/navbar'
   export default {
+    components:{Navbar},
     data: () => ({
       dialog: false,
       headers: [

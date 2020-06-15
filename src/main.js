@@ -3,6 +3,9 @@ import App from './App'
 import router from './router'
 import vuetify from './plugins/vuetify.js'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
+import echarts from 'echarts'
+
+Vue.prototype.$echarts = echarts
 
 Vue.config.productionTip = false
 import axios from 'axios'

@@ -1,5 +1,6 @@
 <template>
   <div class="worker_type">
+   <Navbar/>
    <v-card max-width="1000px" style="margin-left: auto; margin-right: auto;">
     <v-data-table
       :headers="headers"
@@ -17,7 +18,7 @@
           <v-spacer></v-spacer>
           <v-dialog v-model="dialog" max-width="500px">
             <template v-slot:activator="{ on }">
-              <v-btn color="primary" dark class="mb-2" v-on="on">New Item</v-btn>
+              <v-btn v-if="isadmin=='true'" color="primary" dark class="mb-2" v-on="on">New Item</v-btn>
             </template>
             <v-card>
               <v-card-title>
@@ -77,9 +78,12 @@
 
 
 <script>
+  import Navbar from '@/components/navbar'
   export default {
+	components:{Navbar},
     data: () => ({
       dialog: false,
+      isadmin:'',
       headers: [
         {
           text: 'UID',
@@ -97,7 +101,6 @@
         { text: 'Hours', value: 'hours' },
         { text: 'type', value: 'type' },
         { text: 'Money', value: 'money' },
-        { text: 'Actions', value: 'actions', sortable: false },
       ],
       desserts: [],
       editedIndex: -1,
@@ -134,11 +137,19 @@
     methods: {
       initialize () {
         this.desserts = [];
+        this.isadmin = sessionStorage.getItem('isadmin');
+        if(this.isadmin == 'true') this.headers.push({ text: 'Actions', value: 'actions', sortable: false });
         this.axios.get("/api/other_money_info").then((res)=>{
           console.log(res.data);
           for(var i = 0;i < res.data.length;i++)
           {
-            this.desserts.push(res.data[i]);
+            if(this.isadmin == 'true')
+              this.desserts.push(res.data[i]);
+            else//非管理员只能看见自己的
+            {
+              if(sessionStorage.getItem('id') == res.data[i].uid)
+                this.desserts.push(res.data[i]);
+            }
           }
         })
       },

@@ -1,5 +1,6 @@
 <template>
 	<div class="daily_info">
+    <Navbar/>
     <v-card max-width="1000px" style="margin-left: auto; margin-right: auto;">
       <v-card-title>
         Attendance Info
@@ -56,7 +57,9 @@
 </template>
 
 <script>
+  import Navbar from '@/components/navbar'
   export default {
+    components:{Navbar},
     data() {
       return {
         search: '',
@@ -81,10 +84,17 @@
     },
     mounted() {
       this.axios.get("/api/daily_info").then((res)=>{
-        console.log(res.data);
+        //var test = sessionStorage.getItem('isadmin');
+        //console.log(res.data,test);
         for(var i = 0;i < res.data.length;i++)
         {
-          this.daily.push(res.data[i]);
+          if(sessionStorage.getItem('isadmin')=='true')
+            this.daily.push(res.data[i]);
+          else//判断等于id的时候才能push进去
+          {
+            if(sessionStorage.getItem('id') == res.data[i].uid)
+              this.daily.push(res.data[i]);
+          }
         }
       })
     },

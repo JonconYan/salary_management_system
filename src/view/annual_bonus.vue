@@ -1,5 +1,6 @@
 <template>
 	<div class="daily_info">
+    <Navbar/>
     <v-card max-width="1000px" style="margin-left: auto; margin-right: auto;">
       <v-card-title>
         annual bonus
@@ -30,7 +31,9 @@
 </template>
 
 <script>
+  import Navbar from '@/components/navbar'
   export default {
+    components:{Navbar},
     data() {
       return {
         search: '',
@@ -64,7 +67,13 @@
           console.log(res.data);
           for(var i = 0;i < res.data.length;i++)
           {
-            this.desserts.push(res.data[i]);
+            if(sessionStorage.getItem('isadmin')=='true')
+              this.desserts.push(res.data[i]);
+            else//判断等于id的时候push进去
+            {
+              if(sessionStorage.getItem('id') == res.data[i].uid)
+                this.desserts.push(res.data[i]);
+            }
           }
         })
         }

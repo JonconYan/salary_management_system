@@ -1,7 +1,7 @@
 <template>
     <v-content>
       <v-app>
-      <Navbar/>
+<!--      <Navbar/> -->
       <!-- Display view pages here based on route -->
       <router-view></router-view>
       </v-app>

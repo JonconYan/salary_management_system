@@ -63,13 +63,13 @@ router.get('/worker_type/delete',function(req,res,next){
 router.get('/login',function(req,res,next){
   sql = 'SELECT * FROM user WHERE id=\''+req.query.id+'\' AND password=\''+req.query.password+'\'';
   connection.query(sql,function(error,results,fields) {
-                      console.log(sql,results);
+                      //console.log(sql,results,results[0].is_admin);
                       if(results==undefined||results.length==0)
                         res.send('0');
-                      else if(results.isadmin=='1')
+                      else if(results[0].is_admin=='1')
                         res.send('1');
                       else
-                        res.send('2')
+                        res.send('2');
                     })
 });
 

@@ -41,7 +41,7 @@
         password: '',
         snackbar: false,
         is_sign_in:false,
-        is_admin:false,
+        is_admin:'',
         text: '',
       }
     },
@@ -61,14 +61,14 @@
             }
           else
             {
+              sessionStorage.setItem('id',this.username);
               this.text = '欢迎你！'+this.username;
               this.is_sign_in = true;
               this.snackbar = true;
+              //console.log(res.data);
               if(res.data=='1')//表示为管理员
-                {
                   sessionStorage.setItem('isadmin',true)
-                  this.is_admin = true
-                }
+                  //this.is_admin = true
               else
                 sessionStorage.setItem('isadmin',false)
               this.$router.push({path: '/worker_info'})

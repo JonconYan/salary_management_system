@@ -1,5 +1,6 @@
 <template>
   <div class="worker_info">
+    <Navbar/>
     <v-subheader class="grey--text" :inset="true">部门信息</v-subheader>
 
     <v-container class="my-5">
@@ -19,7 +20,9 @@
 </template>
 
 <script>
+  import Navbar from '@/components/navbar'
   export default {
+    components:{Navbar},
     data() {
       return {
         classes: []
