@@ -14,6 +14,20 @@ router.get('/worker_info',function(req, res ,next){
     res.json(results);
     })
 });
+router.get('/worker_info/insert',function(req, res ,next){
+  sql = 'INSERT INTO worker_info VALUES('+'\''+req.query.uid+'\''+','+'\''+req.query.name+'\''+','+req.query.sex+','+req.query.class_id+','+req.query.level+','+req.query.kind+')';
+  console.log(sql);
+  connection.query(sql, function (error, results, fields) {
+    res.send("insert success");
+    })
+});
+router.get('/worker_info/delete',function(req, res ,next){
+  sql = 'DELETE FROM worker_info WHERE uid='+'\''+req.query.uid+'\'';
+  
+  connection.query(sql, function (error, results, fields) {
+    res.send("delete success");
+    })
+});
 
 
 router.get('/class_info',function(req, res ,next){
